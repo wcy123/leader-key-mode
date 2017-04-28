@@ -14,7 +14,7 @@ This is a very simple mode to mimic the concept of leader key in VIM. `evil` is 
 Then select a text, `c` for copy, `y` for yank, `x` for cut, `d` for delete. When mark is active, `c`, `y`, `x`, and `d` are bound to commands other than `self-insert`.
 
 
-When mark is not active, we can `\ b` binds to `C-x b`。
+We can bind `\ b` to `C-x b`。 Then we cannot use `\` to insert a literal "\\". Fortunately, I don't use "\\" often. I can use `C-q \\` to insert a "\\".
 
 Please read the source code to find more. Do be shy to read the source code, it is simple. The core part is as below.
 
