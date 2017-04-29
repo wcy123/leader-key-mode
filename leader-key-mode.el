@@ -1,8 +1,19 @@
+;;; leader-key-mode.el --- A minor mode to mimic leader key in VIM
+
+;;; Commentary:
+;;
+
+;;; Code:
+
 (define-minor-mode leader-key-mode
   "Minor mode to support <leader> support." t)
 (defvar leader-key "\\"
-  "the default leader key")
+  "The default leader key.")
 (defvar leader-key-mode-mark-active-keymap
+  "the keymap for active mark mode. when mark is active, this
+  keymap is activated and when mark is inactive, the keymap is
+  deactivated.
+"
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "a") (kbd "C-a"))
     m))
@@ -11,10 +22,16 @@
 
     m))
 (defun leader-key-mode-create-entry-keymap (key)
+  "It is a helper function.
+it is used to create a keymap which bound to the leader key.
+
+KEY is default to \"\\\" which is the leader key."
+
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd key) leader-key-mode-keymap)
     m))
 (defconst leader-key-mode--emulation-mode-map-alist
+  "an alist which will be added into `emulation-mode-map-alists`."
   `((mark-active ,@leader-key-mode-mark-active-keymap)
     (leader-key-mode ,@(leader-key-mode-create-entry-keymap leader-key))))
 (add-to-list 'emulation-mode-map-alists
@@ -22,10 +39,12 @@
 
 
 (defun leader-key-mode--delete-region (b e)
+  "Delete the current region.
+B is the beginning of the region.  E is the end of the region."
   (interactive "r")
   (delete-region b e))
 (defun leader-key-mode--duplicate-line()
-  "duplicate a line"
+  "duplicate a line, and keep cursor's posistion in the line."
   (interactive)
   (let* ((b (line-beginning-position))
          (e (line-end-position))
@@ -37,15 +56,20 @@
       (insert txt "\n"))
     (forward-char l)))
 (defun leader-key-mode--delete-and-yank (b e)
+  "Delete the current region, and then yank(paste).
+This is common convention for many editors.  B is the beginnin of
+  the region and E is the end of the region."
   (interactive "r")
   (delete-region b e)
   (call-interactively 'yank))
 (defun leader-key-mode--display-buffer-name ()
+  "Display the full path of the current buffer-file."
   (interactive)
   (message (or (buffer-file-name (current-buffer))
                (format "%s[%s]" default-directory (buffer-name)))))
 
 (defmacro leader-key-mode--replay(str)
+  "this macro is used to bind one key sequence to another key sequence."
   `#'(lambda () (interactive)
        (call-interactively (key-binding (kbd ,str)))))
 
@@ -88,3 +112,7 @@
 
 
 (provide 'leader-key-mode)
+
+(provide 'leader-key-mode)
+
+;;; leader-key-mode.el ends here
