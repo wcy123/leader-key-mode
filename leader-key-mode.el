@@ -10,16 +10,15 @@
 (defvar leader-key "\\"
   "The default leader key.")
 (defvar leader-key-mode-mark-active-keymap
+  (let ((m (make-sparse-keymap)))
+    m)
   "the keymap for active mark mode. when mark is active, this
   keymap is activated and when mark is inactive, the keymap is
   deactivated.
 "
-  (let ((m (make-sparse-keymap)))
-    (define-key m (kbd "a") (kbd "C-a"))
-    m))
+  )
 (defvar leader-key-mode-keymap
   (let ((m (make-sparse-keymap)))
-
     m))
 (defun leader-key-mode-create-entry-keymap (key)
   "It is a helper function.
