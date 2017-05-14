@@ -30,9 +30,9 @@ KEY is default to \"\\\" which is the leader key."
     (define-key m (kbd key) leader-key-mode-keymap)
     m))
 (defconst leader-key-mode--emulation-mode-map-alist
-  "an alist which will be added into `emulation-mode-map-alists`."
   `((mark-active ,@leader-key-mode-mark-active-keymap)
-    (leader-key-mode ,@(leader-key-mode-create-entry-keymap leader-key))))
+    (leader-key-mode ,@(leader-key-mode-create-entry-keymap leader-key)))
+  "an alist which will be added into `emulation-mode-map-alists`.")
 (add-to-list 'emulation-mode-map-alists
              'leader-key-mode--emulation-mode-map-alist)
 
