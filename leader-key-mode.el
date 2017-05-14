@@ -1,25 +1,44 @@
-;;; leader-key-mode.el --- A minor mode to mimic leader key in VIM
+;;; leader-key-mode.el --- a minor mode to mimic leader key in VIM  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2017  wangchunye
+
+;; Author: wangchunye <wangchunye@dg17>
+;; Keywords: extensions, emulations
+;; Version: 0.0
+;; Package-Version: 0.0
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
 
+;; usage
+;; (require 'leader-key-mode)
+;;
+;; to add your own bindings
+;;
+;; (define-key leader-key-mode-keymap (kbd "O") 'your-faverite-command)
+;;
 ;;; Code:
+
+
 
 (define-minor-mode leader-key-mode
   "Minor mode to support <leader> support." t)
 (defvar leader-key "\\"
-  "The default leader key.")
-(defvar leader-key-mode-mark-active-keymap
-  (let ((m (make-sparse-keymap)))
-    m)
-  "the keymap for active mark mode. when mark is active, this
-  keymap is activated and when mark is inactive, the keymap is
-  deactivated.
-"
-  )
-(defvar leader-key-mode-keymap
-  (let ((m (make-sparse-keymap)))
-    m))
+  "the default leader key")
+(defvar leader-key-mode-mark-active-keymap (make-sparse-keymap))
+(defvar leader-key-mode-keymap (make-sparse-keymap))
 (defun leader-key-mode-create-entry-keymap (key)
   "It is a helper function.
 it is used to create a keymap which bound to the leader key.
@@ -61,6 +80,7 @@ This is common convention for many editors.  B is the beginnin of
   (interactive "r")
   (delete-region b e)
   (call-interactively 'yank))
+
 (defun leader-key-mode--display-buffer-name ()
   "Display the full path of the current buffer-file."
   (interactive)
@@ -74,7 +94,8 @@ This is common convention for many editors.  B is the beginnin of
 
 (define-key leader-key-mode-mark-active-keymap (kbd "c") 'kill-ring-save)
 (define-key leader-key-mode-mark-active-keymap (kbd "d")  'leader-key-mode--delete-region)
-(define-key leader-key-mode-mark-active-keymap (kbd "x")  'kill-ring-save)
+(define-key leader-key-mode-mark-active-keymap (kbd "n") 'next-line)
+(define-key leader-key-mode-mark-active-keymap (kbd "x")  'kill-region)
 (define-key leader-key-mode-mark-active-keymap (kbd "y")  'leader-key-mode--delete-and-yank)
 
 (define-key leader-key-mode-keymap (kbd "a") 'beginning-of-line)
@@ -82,6 +103,7 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "b") (leader-key-mode--replay "C-x b"))
 (define-key leader-key-mode-keymap (kbd "d") nil)
 (define-key leader-key-mode-keymap (kbd "d l") 'leader-key-mode--duplicate-line)
+(define-key leader-key-mode-keymap (kbd "n") 'next-line)
 (define-key leader-key-mode-keymap (kbd "y") 'yank)
 ;;(define-key leader-key-mode-keymap (kbd "u") 'undo)
 (define-key leader-key-mode-keymap (kbd "SPC") 'set-mark-command)
@@ -111,7 +133,4 @@ This is common convention for many editors.  B is the beginnin of
 
 
 (provide 'leader-key-mode)
-
-(provide 'leader-key-mode)
-
 ;;; leader-key-mode.el ends here
