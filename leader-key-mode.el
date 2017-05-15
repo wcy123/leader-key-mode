@@ -74,7 +74,7 @@ This is common convention for many editors.  B is the beginnin of
 
 (define-key leader-key-mode-mark-active-keymap (kbd "c") 'kill-ring-save)
 (define-key leader-key-mode-mark-active-keymap (kbd "d")  'leader-key-mode--delete-region)
-(define-key leader-key-mode-mark-active-keymap (kbd "x")  'kill-ring-save)
+(define-key leader-key-mode-mark-active-keymap (kbd "x")  'kill-region)
 (define-key leader-key-mode-mark-active-keymap (kbd "y")  'leader-key-mode--delete-and-yank)
 
 (define-key leader-key-mode-keymap (kbd "a") 'beginning-of-line)
