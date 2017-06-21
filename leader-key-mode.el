@@ -90,11 +90,17 @@ This is common convention for many editors.  B is the beginnin of
 (defmacro leader-key-mode--replay(str)
   "this macro is used to bind one key sequence to another key sequence."
   `#'(lambda () (interactive)
-       (call-interactively (key-binding (kbd ,str)))))
+       (let* ((leader-key-mode)
+              (seq (kbd ,str))
+              (len (length seq))
+              (last-input-event (elt seq (1- len)))
+              (last-command-event seq))
+         (call-interactively (key-binding seq)))))
 
 (define-key leader-key-mode-mark-active-keymap (kbd "c") 'kill-ring-save)
 (define-key leader-key-mode-mark-active-keymap (kbd "d")  'leader-key-mode--delete-region)
 (define-key leader-key-mode-mark-active-keymap (kbd "n") 'next-line)
+(define-key leader-key-mode-mark-active-keymap (kbd "o") 'exchange-point-and-mark)
 (define-key leader-key-mode-mark-active-keymap (kbd "x")  'kill-region)
 (define-key leader-key-mode-mark-active-keymap (kbd "y")  'leader-key-mode--delete-and-yank)
 
@@ -129,8 +135,20 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "(") 'insert-parentheses)
 (define-key leader-key-mode-keymap (kbd "\"") #'(lambda (arg) (interactive "P") (insert-pair arg 34 34)))
 (define-key leader-key-mode-keymap (kbd "[") #'(lambda (arg) (interactive "P") (insert-pair arg 91 93)))
+(define-key leader-key-mode-keymap (kbd "]") (leader-key-mode--replay "\\"))
+(define-key leader-key-mode-keymap (kbd "o") (leader-key-mode--replay "C-x C-x"))
+
 (define-key leader-key-mode-keymap (kbd "{") #'(lambda (arg) (interactive "P") (insert-pair arg 123 125)))
 
-
+(define-key leader-key-mode-keymap (kbd "}") 'wcy-complete)
+(define-key leader-key-mode-keymap (kbd "g") nil)
+(define-key leader-key-mode-keymap (kbd "g c") 'avy-goto-char)
+(define-key leader-key-mode-keymap (kbd "g C") 'avy-goto-char-2)
+(define-key leader-key-mode-keymap (kbd "g l") 'avy-goto-line)
+(define-key leader-key-mode-keymap (kbd "g w") 'avy-goto-word-1)
+(define-key leader-key-mode-keymap (kbd "g v") 'avy-copy-region)
+(define-key leader-key-mode-keymap (kbd "g x") 'avy-kill-region)
+(define-key leader-key-mode-keymap (kbd ".") 'find-tag)
+(define-key leader-key-mode-keymap (kbd "4") 'kill-this-buffer)
 (provide 'leader-key-mode)
 ;;; leader-key-mode.el ends here
