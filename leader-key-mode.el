@@ -92,10 +92,12 @@ This is common convention for many editors.  B is the beginnin of
   `#'(lambda () (interactive)
        (let* ((leader-key-mode)
               (seq (kbd ,str))
-              (len (length seq))
-              (last-input-event (elt seq (1- len)))
-              (last-command-event seq))
-         (call-interactively (key-binding seq)))))
+              (cmd (key-binding seq)))
+         (cond
+          ((eq cmd 'self-insert-command) (insert seq))
+          (t (call-interactively cmd))))))
+
+
 
 (define-key leader-key-mode-mark-active-keymap (kbd "c") 'kill-ring-save)
 (define-key leader-key-mode-mark-active-keymap (kbd "d")  'leader-key-mode--delete-region)
