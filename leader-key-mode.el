@@ -112,6 +112,18 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "d") nil)
 (define-key leader-key-mode-keymap (kbd "d l") 'leader-key-mode--duplicate-line)
 (define-key leader-key-mode-keymap (kbd "n") 'next-line)
+(defun leader-key-mode-select-symbol-at-point()
+  (interactive "")
+  (let* ((bounds
+          (bounds-of-thing-at-point 'sexp))
+         (b (car bounds))
+         (e (cdr bounds)))
+    (when bounds
+      (goto-char b)
+      (set-mark-command nil)
+      (goto-char e))
+    ))
+(define-key leader-key-mode-keymap (kbd "s") 'leader-key-mode-select-symbol-at-point)
 (define-key leader-key-mode-keymap (kbd "y") 'yank)
 ;;(define-key leader-key-mode-keymap (kbd "u") 'undo)
 (define-key leader-key-mode-keymap (kbd "SPC") 'set-mark-command)
