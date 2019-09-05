@@ -130,7 +130,8 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "?") 'hippie-expand)
 (define-key leader-key-mode-keymap (kbd "5") 'leader-key-mode--display-buffer-name)
 (define-key leader-key-mode-keymap (kbd "7") 'compile)
-(define-key leader-key-mode-keymap (kbd "`") next-error)
+(define-key leader-key-mode-keymap (kbd "=") '
+(define-key leader-key-mode-keymap (kbd "`") 'next-error)
 ;;(define-key leader-key-mode-keymap (kbd "!") shell-command)
 ;;(define-key leader-key-mode-keymap (kbd "RET") execute-extended-command)
 (define-key leader-key-mode-keymap (kbd "1") 'delete-other-windows)
