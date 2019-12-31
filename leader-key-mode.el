@@ -97,8 +97,6 @@ This is common convention for many editors.  B is the beginnin of
           ((eq cmd 'self-insert-command) (insert seq))
           (t (call-interactively cmd))))))
 
-
-
 (define-key leader-key-mode-mark-active-keymap (kbd "c") 'kill-ring-save)
 (define-key leader-key-mode-mark-active-keymap (kbd "d")  'leader-key-mode--delete-region)
 (define-key leader-key-mode-mark-active-keymap (kbd "n") 'next-line)
@@ -132,7 +130,8 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "?") 'hippie-expand)
 (define-key leader-key-mode-keymap (kbd "5") 'leader-key-mode--display-buffer-name)
 (define-key leader-key-mode-keymap (kbd "7") 'compile)
-;;(define-key leader-key-mode-keymap (kbd "`") next-error)
+(define-key leader-key-mode-keymap (kbd "=") '
+(define-key leader-key-mode-keymap (kbd "`") 'next-error)
 ;;(define-key leader-key-mode-keymap (kbd "!") shell-command)
 ;;(define-key leader-key-mode-keymap (kbd "RET") execute-extended-command)
 (define-key leader-key-mode-keymap (kbd "1") 'delete-other-windows)
@@ -156,8 +155,12 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "(") 'insert-parentheses)
 (define-key leader-key-mode-keymap (kbd "\"") #'(lambda (arg) (interactive "P") (insert-pair arg 34 34)))
 (define-key leader-key-mode-keymap (kbd "[") #'(lambda (arg) (interactive "P") (insert-pair arg 91 93)))
-(define-key leader-key-mode-keymap (kbd "]") (leader-key-mode--replay "\\"))
+(define-key leader-key-mode-keymap (kbd "}") (leader-key-mode--replay "\\"))
 (define-key leader-key-mode-keymap (kbd "o") (leader-key-mode--replay "C-x C-x"))
+(define-key leader-key-mode-keymap (kbd "[") #'(lambda (arg) (interactive "P")
+                                                 (insert-pair arg 91 93)))
+(define-key leader-key-mode-keymap (kbd "]") (leader-key-mode--replay "\\"))
+(define-key leader-key-mode-keymap (kbd "{") #'(lambda (arg) (interactive "P") (insert-pair arg 123 125)))
 
 (define-key leader-key-mode-keymap (kbd "{") #'(lambda (arg) (interactive "P") (insert-pair arg 123 125)))
 
