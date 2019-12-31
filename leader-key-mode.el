@@ -137,6 +137,13 @@ This is common convention for many editors.  B is the beginnin of
 ;;(define-key leader-key-mode-keymap (kbd "RET") execute-extended-command)
 (define-key leader-key-mode-keymap (kbd "1") 'delete-other-windows)
 (define-key leader-key-mode-keymap (kbd "2") 'mark-sexp)
+(define-key leader-key-mode-keymap (kbd "3") #'(lambda()
+                                                 (interactive)
+                                                 (point-to-register 'a)))
+(define-key leader-key-mode-keymap (kbd "4") 'kill-this-buffer)
+(define-key leader-key-mode-keymap (kbd "`") #'(lambda()
+                                                 (interactive)
+                                                 (jump-to-register 'a)))
 (define-key leader-key-mode-keymap (kbd "\\") #'(lambda ()
                                                   (interactive)
                                                   (switch-to-buffer
@@ -163,6 +170,8 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-keymap (kbd "g v") 'avy-copy-region)
 (define-key leader-key-mode-keymap (kbd "g x") 'avy-kill-region)
 (define-key leader-key-mode-keymap (kbd ".") 'find-tag)
-(define-key leader-key-mode-keymap (kbd "4") 'kill-this-buffer)
+(define-key leader-key-mode-keymap (kbd "x") 'execute-extended-command)
+
+
 (provide 'leader-key-mode)
 ;;; leader-key-mode.el ends here
