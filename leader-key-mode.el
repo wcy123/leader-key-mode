@@ -107,7 +107,6 @@ This is common convention for many editors.  B is the beginnin of
 (define-key leader-key-mode-mark-active-keymap (kbd "f")  'forward-sexp)
 (define-key leader-key-mode-mark-active-keymap (kbd "b")  'backward-sexp)
 (define-key leader-key-mode-mark-active-keymap (kbd "u")  'backward-up-list)
-(define-key leader-key-mode-mark-active-keymap (kbd "d")  'down-list)
 (define-key leader-key-mode-mark-active-keymap (kbd "s")  #'(lambda()
                                                               (interactive)
                                                               (leader-key-mode-select-thing-at-point
