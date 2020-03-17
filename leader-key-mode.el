@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2017  wangchunye
 
-;; Author: wangchunye <wangchunye@dg17>
+;; Author: wangchunye <wcy123@gmail.com>
 ;; Keywords: extensions, emulations
 ;; Version: 0.0
 ;; Package-Version: 0.0
@@ -32,12 +32,14 @@
 ;;; Code:
 
 
-
+;;;###autoload
 (define-minor-mode leader-key-mode
   "Minor mode to support <leader> support." t)
 (defvar leader-key "\\"
   "the default leader key")
+;;;###autoload
 (defvar leader-key-mode-mark-active-keymap (make-sparse-keymap))
+;;;###autoload
 (defvar leader-key-mode-keymap (make-sparse-keymap))
 (defun leader-key-mode-create-entry-keymap (key)
   "It is a helper function.
