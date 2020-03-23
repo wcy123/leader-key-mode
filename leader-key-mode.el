@@ -31,18 +31,15 @@
 ;;
 ;;; Code:
 
+(defmacro leader-key-mode-kbd (key)
+  (kbd key))
 
+(defvar leader-key (leader-key-mode-kbd "\\")
+  "the default leader key")
 ;;;###autoload
 (define-minor-mode leader-key-mode
   "Minor mode to support <leader> support." t)
-(defvar leader-key "\\"
-  "the default leader key")
-;;;###autoload
-(defmacro leader-key-mode-kbd (key)
-  (if (stringp key)
-      (kbd key)
-    `(kbd ,key)))
-;;;###autoload
+
 (defmacro leader-key-mode--replay(str)
   "this macro is used to bind one key sequence to another key sequence."
   `#'(lambda () (interactive)
@@ -139,7 +136,7 @@ it is used to create a keymap which bound to the leader key.
 
 KEY is default to \"\\\" which is the leader key."
   (let ((m (make-sparse-keymap)))
-    (define-key m (leader-key-mode-kbd key) leader-key-mode-keymap)
+    (define-key m key leader-key-mode-keymap)
     m))
 
 (defconst leader-key-mode--emulation-mode-map-alist
